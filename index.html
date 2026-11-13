@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aslam Rashid Shaikh | Senior Software Developer | Full Stack .NET Developer</title>
+
+  <!-- SEO & Recruiter Meta Tags -->
+  <meta name="description"
+    content="Aslam Rashid Shaikh - Senior Software Developer & Full Stack .NET Developer with 4.6+ years of experience engineering enterprise banking applications for SBI, Union Bank of India and Bank of Muscat. Expert in C#, .NET Core, Web API, Angular 17, and SQL Server.">
+  <meta name="keywords"
+    content="Aslam Rashid Shaikh, Senior Software Developer, Full Stack .NET Developer, C#, .NET Core, ASP.NET MVC, Web API, Angular 17, SQL Server, WPF, Banking Applications, Navi Mumbai Developer, India">
+  <meta name="author" content="Aslam Rashid Shaikh">
+
+  <!-- Open Graph / LinkedIn / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://my-portfolio-website-4f201.web.app/">
+  <meta property="og:title" content="Aslam Rashid Shaikh | Senior Software Developer | Full Stack .NET Developer">
+  <meta property="og:description"
+    content="Senior Full Stack .NET Developer with 4.6+ years of experience building scalable enterprise banking systems and high-performance Web APIs.">
+  <meta property="og:image" content="assets/d_hero.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aslam Rashid Shaikh | Senior Full Stack .NET Developer">
+  <meta name="twitter:description"
+    content="Senior Software Developer specializing in C#, .NET Core, Web API, Angular 17, and SQL Server enterprise banking solutions.">
+  <meta name="twitter:image" content="assets/d_hero.png">
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
+
+  <!-- Structured Schema Data (JSON-LD) for Search Engines & Recruiters -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Aslam Rashid Shaikh",
+    "jobTitle": "Senior Software Developer | Full Stack .NET Developer",
+    "telephone": "+918104537679",
+    "email": "shaikhaslame0@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Navi Mumbai",
+      "addressRegion": "Maharashtra",
+      "postalCode": "400612",
+      "addressCountry": "IN"
+    },
+    "alumniOf": "University of Mumbai",
+    "knowsAbout": [
+      "C#", ".NET Core", "ASP.NET MVC", "ASP.NET Web API", "Angular 17", 
+      "Microsoft SQL Server", "WPF", "Azure", "Entity Framework", "REST APIs"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/aslam-shaikh-4497581bb",
+      "https://github.com/arswebdeveloper"
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <!-- Screen Reader Skip Link -->
+  <a class="skip-link" href="#hero">Skip to main content</a>
+
+  <!-- Scroll Progress Indicator -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Interactive Custom Glow Cursor -->
+  <div id="custom-cursor" aria-hidden="true"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="#hero" class="brand-logo" aria-label="Aslam Rashid Shaikh Home">
+        <span class="brand-name">Aslam <span class="brand-highlight">Shaikh</span></span>
+        <span class="brand-badge">Sr. Software Developer</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="nav-links-menu">
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#what-i-do">What I Do</a></li>
+          <li><a href="#freelance">Freelance</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Let's Connect</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions (Theme Switcher, Resume Button, Mobile Hamburger) -->
+      <div class="nav-actions">
+        <a href="assets/Aslam_Shaikh_Resume.pdf" class="btn btn-primary btn-sm resume-download-btn"
+          download="Aslam_Shaikh_Senior_DotNet_Resume.pdf" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+          </svg>
+          <span>Resume</span>
+        </a>
+
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light or dark theme" title="Toggle theme">
+          <!-- Populated by JS -->
+        </button>
+
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          &#9776;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- SECTION 1: HERO / INTRODUCTION -->
+    <section class="hero-section" id="hero">
+      <!-- 3D Three.js Interactive Canvas Container -->
+      <div id="hero-3d-canvas-container" aria-hidden="true"></div>
+      <div class="hero-overlay-glow" aria-hidden="true"></div>
+
+      <!-- Floating Code Diagnostics (3D Parallax Desktop) -->
+      <div class="hero-code-panels" aria-hidden="true">
+        <div class="code-panel">
+          <b>GET</b> /api/v1/queue/<i>token</i><br>
+          { "status": "<span>CALLED</span>", "counter": 4 }<br>
+          <b>await</b> speechEngine.<i>speakAsync</i>();
+        </div>
+        <div class="code-panel">
+          <b>public class</b> <i>KioskSyncWorker</i><br>
+          &nbsp;&nbsp;<b>await</b> ProcessBatchAsync();<br>
+          // Holiday-aware sync: <span>ACTIVE</span>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="hero-content">
+          <!-- Availability Status Pill -->
+          <div class="availability-pill" id="availability-badge">
+            <span class="pulse-dot"></span>
+            <span class="avail-text">Available for Full-Time Roles &amp; Freelance Projects</span>
+          </div>
+
+          <h1 class="hero-title">
+            Architecting Scalable Applications.<br>
+            <span class="gradient-text">Engineering Enterprise Solutions.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Senior Software Developer &amp; Full Stack .NET Developer with <strong>4.6+ years</strong> of expertise
+            designing, building, and deploying mission-critical banking applications for <strong>5+ Tier-1 banking
+              clients</strong> including <strong>State Bank of India</strong>, <strong>Union Bank of India</strong>, and
+            <strong>Bank of Muscat</strong>.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="assets/Aslam_Shaikh_Resume.pdf" class="btn btn-primary resume-download-btn"
+              download="Aslam_Shaikh_Senior_DotNet_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+              <span>Download Resume (PDF)</span>
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <span>Let's Connect</span>
+              &rarr;
+            </a>
+          </div>
+
+          <!-- Hero Metrics Bar -->
+          <div class="hero-stats-bar" id="hero-stats-container">
+            <!-- Rendered by main.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ABOUT ME -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">About Me</span>
+          <h2 class="section-title">Senior Full Stack .NET Specialist</h2>
+          <p class="section-desc">Based in Navi Mumbai, Maharashtra, India &bull; Open to Senior &amp; Lead
+            Opportunities</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              I am a results-oriented Senior Software Developer with <strong>4.6+ years</strong> of hands-on experience
+              engineering robust, high-availability enterprise applications. My expertise spans the entire .NET
+              ecosystem—from modern <strong>C#</strong>, <strong>.NET Core</strong>, and <strong>ASP.NET Web
+                API</strong> backends to dynamic <strong>Angular 17</strong> frontends and finely-tuned
+              <strong>Microsoft SQL Server</strong> databases.
+            </p>
+            <p>
+              At Aurionpro Solutions, I lead backend development and system integration for high-stakes enterprise
+              banking systems utilized daily by thousands of branches across India and the Middle East, including
+              <strong>State Bank of India (SBI)</strong>, <strong>Union Bank of India</strong>, and <strong>Bank of
+                Muscat (Oman)</strong>.
+            </p>
+            <p>
+              I take pride in owning software through all lifecycle stages: requirement grooming, API contracts, core
+              feature development, database indexing, UAT stakeholder alignment, live branch deployment, and SLA
+              production triage.
+            </p>
+
+            <ul class="about-highlights">
+              <li>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span><strong>Full-Stack Mastery:</strong> Seamlessly bridging modern Angular client UIs with resilient
+                  ASP.NET Web API micro-backends.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span><strong>Enterprise Reliability:</strong> Proven track record engineering systems for high-volume
+                  transactions, kiosk networks, and queue tokens.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span><strong>Speech &amp; Telemetry Integration:</strong> Experience implementing dual-language
+                  Text-to-Speech (TTS) and Speech-to-Text (STT) solutions.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="about-card-metrics">
+            <div class="metric-pill">
+              <div class="metric-pill-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <div>
+                <h4>Banking Enterprise Security</h4>
+                <span>Rigorous compliance with banking protocols and data confidentiality</span>
+              </div>
+            </div>
+
+            <div class="metric-pill">
+              <div class="metric-pill-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+              </div>
+              <div>
+                <h4>SQL Optimization</h4>
+                <span>Stored procedures, transaction management &amp; deadlock mitigation</span>
+              </div>
+            </div>
+
+            <div class="metric-pill">
+              <div class="metric-pill-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
+              </div>
+              <div>
+                <h4>Desktop &amp; Kiosk Networks</h4>
+                <span>WPF &amp; WinForms hardware integration with batch synchronization</span>
+              </div>
+            </div>
+
+            <div class="metric-pill">
+              <div class="metric-pill-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 14 14" />
+                </svg>
+              </div>
+              <div>
+                <h4>24/7 Production Support</h4>
+                <span>Rapid incident response, telemetry debugging &amp; zero-downtime hotfixes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: TECHNICAL SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Core Competencies</span>
+          <h2 class="section-title">Technical Skills &amp; Stack</h2>
+          <p class="section-desc">Technologies, frameworks, databases, and architectural methodologies utilized in
+            production.</p>
+        </div>
+
+        <div id="skills-section-container">
+          <!-- Rendered dynamically by main.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: PROFESSIONAL EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Career Journey</span>
+          <h2 class="section-title">Professional Experience</h2>
+          <p class="section-desc">Track record of delivering enterprise-grade software solutions in high-compliance
+            environments.</p>
+        </div>
+
+        <div class="timeline-container" id="experience-timeline-container">
+          <!-- Rendered dynamically by main.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: FEATURED PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Engineering Case Studies</span>
+          <h2 class="section-title">Featured Enterprise Projects</h2>
+          <p class="section-desc">Real-world applications engineered for Tier-1 banks and institutions. Click any card
+            to inspect system flow.</p>
+        </div>
+
+        <div class="projects-grid" id="projects-grid-container">
+          <!-- Rendered dynamically by main.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: WHAT I DO -->
+    <section id="what-i-do">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Capabilities</span>
+          <h2 class="section-title">What I Bring to Your Engineering Team</h2>
+          <p class="section-desc">Core competencies developed through years of enterprise delivery, high concurrency,
+            and SLA ownership.</p>
+        </div>
+
+        <div class="what-i-do-grid" id="what-i-do-grid-container">
+          <!-- Rendered dynamically by main.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: FREELANCE PROJECT SPECIAL HIGHLIGHT -->
+    <section id="freelance">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Production Showcase</span>
+          <h2 class="section-title">Freelance Web Engineering</h2>
+          <p class="section-desc">End-to-end client engagement delivering modern cloud-hosted web experiences.</p>
+        </div>
+
+        <div class="featured-freelance-card glass-card">
+          <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 36px; align-items: center;">
+            <div>
+              <span class="freelance-badge">Live Production &bull; Education Domain</span>
+              <h3 style="font-size: 1.8rem; margin-bottom: 12px; font-weight: 800;">Little Champs Pre-Primary School
+                Website</h3>
+              <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                Architected and deployed a responsive, high-performance web portal for an established pre-primary
+                school. Engineered using <strong>Angular 17 standalone components</strong>, optimized asset compression,
+                automated <strong>EmailJS parent inquiry forms</strong>, and globally distributed on <strong>Firebase
+                  Hosting</strong> via Firebase CLI pipelines.
+              </p>
+              <div class="tag-cloud" style="margin-bottom: 28px;">
+                <span class="tag-pill">Angular 17</span>
+                <span class="tag-pill">TypeScript</span>
+                <span class="tag-pill">Firebase Hosting</span>
+                <span class="tag-pill">Firebase CLI</span>
+                <span class="tag-pill">EmailJS</span>
+                <span class="tag-pill">Bootstrap 5</span>
+                <span class="tag-pill">Responsive Design</span>
+              </div>
+              <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                <a href="https://littlechampspreprimaryschool.in" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-primary">
+                  <span>Visit Live Website</span>
+                  &nearr;
+                </a>
+                <button class="btn btn-secondary open-case-study-btn" data-index="3">
+                  Inspect Architecture
+                </button>
+              </div>
+            </div>
+
+            <div class="mockup-window" style="height: 240px; margin-bottom: 0;">
+              <div class="mockup-header">
+                <span class="mockup-dot red"></span>
+                <span class="mockup-dot yellow"></span>
+                <span class="mockup-dot green"></span>
+                <span
+                  style="font-size: 0.75rem; color: var(--text-muted); margin-left: 8px;">https://littlechampspreprimaryschool.in</span>
+              </div>
+              <div class="mockup-body"
+                style="background: rgba(16, 185, 129, 0.05); border-radius: 8px; border: 1px dashed rgba(16, 185, 129, 0.3);">
+                <div style="text-align: center;">
+                  <div style="font-size: 1.4rem; font-weight: 800; color: #6ee7b7; margin-bottom: 6px;">Little Champs
+                    School</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">Angular 17 &bull; Fast CDN &bull; Zero
+                    Server Overhead</div>
+                  <span class="mockup-badge-live"
+                    style="position: static; display: inline-block; margin-top: 14px;">100% PRODUCTION UPTIME</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: EDUCATION & CERTIFICATION -->
+    <section id="education">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Credentials</span>
+          <h2 class="section-title">Education &amp; Certifications</h2>
+          <p class="section-desc">Academic foundation in information technology and professional full-stack
+            accreditation.</p>
+        </div>
+
+        <div class="education-grid" id="education-grid-container">
+          <!-- Rendered dynamically by main.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: LET'S CONNECT (CONTACT FORM) -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Get In Touch</span>
+          <h2 class="section-title">Let's Connect</h2>
+          <p class="section-desc">I am actively open to Senior Software Developer and Full Stack .NET engineering roles.
+            Feel free to send a message or contact me directly.</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Direct Contact Information -->
+          <div class="glass-card contact-info-card">
+            <div>
+              <h3 style="font-size: 1.4rem; margin-bottom: 8px;">Contact Information</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">
+                Looking forward to discussing high-impact opportunities, enterprise architecture, and technical
+                challenges.
+              </p>
+
+              <ul class="contact-details">
+                <li class="contact-detail-item">
+                  <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4>Direct Email</h4>
+                    <a id="contact-email-text" href="mailto:shaikhaslame0@gmail.com">shaikhaslame0@gmail.com</a>
+                  </div>
+                </li>
+
+                <li class="contact-detail-item">
+                  <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path
+                        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4>Phone / WhatsApp</h4>
+                    <a id="contact-phone-text" href="tel:+918104537679">+91 8104537679</a>
+                  </div>
+                </li>
+
+                <li class="contact-detail-item">
+                  <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4>Location</h4>
+                    <p id="contact-loc-text">Navi Mumbai, Maharashtra, India (400612)</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div style="border-top: 1px solid var(--card-border); padding-top: 22px;">
+              <h4
+                style="font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 14px;">
+                Connect on Professional Networks</h4>
+              <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                <a id="nav-linkedin" href="https://www.linkedin.com/in/aslam-shaikh-4497581bb" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-secondary social-btn" title="View LinkedIn Profile">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="color: #0ea5e9;">
+                    <path
+                      d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                  <span>LinkedIn Profile</span>
+                  <span style="font-size: 0.75rem; opacity: 0.7;">&nearr;</span>
+                </a>
+                <a id="nav-github" href="https://github.com/arswebdeveloper" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-secondary social-btn" title="View GitHub Repositories">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path
+                      d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                  </svg>
+                  <span>GitHub Repositories</span>
+                  <span style="font-size: 0.75rem; opacity: 0.7;">&nearr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recruiter Contact Form -->
+          <div class="glass-card contact-form-card">
+            <h3 style="font-size: 1.4rem; margin-bottom: 6px;">Send a Direct Message</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px;">
+              Messages are routed directly to Aslam's primary inbox.
+            </p>
+
+            <form id="recruiter-contact-form" novalidate>
+              <!-- Anti-Spam Honeypot Field -->
+              <div class="hp-field" aria-hidden="true">
+                <label for="contact-company-hp">Company Website (Leave Blank)</label>
+                <input id="contact-company-hp" type="text" tabindex="-1" autocomplete="off">
+              </div>
+
+              <div class="form-group">
+                <label for="contact-name" class="form-label">Full Name <span
+                    style="color: var(--rose);">*</span></label>
+                <input id="contact-name" class="form-control" type="text" placeholder="e.g. John Doe"
+                  autocomplete="name" required>
+                <div class="form-error" id="err-name"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-email" class="form-label">Email Address <span
+                    style="color: var(--rose);">*</span></label>
+                <input id="contact-email" class="form-control" type="email" placeholder="name@company.com"
+                  autocomplete="email" required>
+                <div class="form-error" id="err-email"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-subject" class="form-label">Subject <span
+                    style="color: var(--rose);">*</span></label>
+                <input id="contact-subject" class="form-control" type="text"
+                  placeholder="e.g. Senior .NET Developer Opportunity" required>
+                <div class="form-error" id="err-subject"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message" class="form-label">Message <span
+                    style="color: var(--rose);">*</span></label>
+                <textarea id="contact-message" class="form-control" rows="5"
+                  placeholder="Share role details, team structure, or collaboration inquiries..." required></textarea>
+                <div class="form-error" id="err-message"></div>
+              </div>
+
+              <button id="contact-submit-btn" type="submit" class="btn btn-primary" style="width: 100%;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+                <span>Submit</span>
+              </button>
+
+              <!-- Real-time Submission Alerts (dynamically revealed only after form submit) -->
+              <div id="contact-success-alert" class="form-status-alert" role="status" aria-live="polite" style="display: none;"></div>
+              <div id="contact-error-alert" class="form-status-alert" role="alert" aria-live="assertive" style="display: none;"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- SECTION 10: FOOTER -->
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <span>&copy; <span id="copyright-year">2026</span> <strong>Aslam Rashid Shaikh</strong>. All rights
+          reserved.</span>
+        <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">
+          Senior Software Developer &bull; Full Stack .NET Developer &bull; Navi Mumbai, India
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <a href="https://www.linkedin.com/in/aslam-shaikh-4497581bb" target="_blank" rel="noopener noreferrer"
+          style="display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted);"
+          title="LinkedIn Profile">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="color: #0ea5e9;">
+            <path
+              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+        <span>&bull;</span>
+        <a href="https://github.com/arswebdeveloper" target="_blank" rel="noopener noreferrer"
+          style="display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted);"
+          title="GitHub Repositories">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <span>&bull;</span>
+        <a href="#hero">Back to Top &uarr;</a>
+        <span>&bull;</span>
+        <a href="assets/Aslam_Shaikh_Resume.pdf" class="resume-download-btn"
+          download="Aslam_Shaikh_Senior_DotNet_Resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+        <span>&bull;</span>
+        <!-- Secure Admin Portal Link -->
+        <a href="/admin" class="footer-admin-link" title="Authorized Administrator Portal">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0110 0v4" />
+          </svg>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Visitor Welcome Toast Banner -->
+  <aside id="visitor-welcome-toast" class="visitor-welcome-toast" aria-label="Welcome greeting" role="complementary"
+    style="display: none;">
+    <div class="toast-card glass-card">
+      <button type="button" class="toast-close-btn" id="close-welcome-toast" aria-label="Dismiss greeting">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="toast-avatar">
+        <span class="toast-wave" aria-hidden="true">👋</span>
+        <span class="toast-pulse-dot" aria-hidden="true"></span>
+      </div>
+      <div class="toast-body">
+        <div class="toast-header-text">
+          <span class="toast-eyebrow">Available for Roles &amp; Freelancing</span>
+          <h4 class="toast-title">Welcome to my Portfolio!</h4>
+        </div>
+        <p class="toast-message">
+          Hi! I'm <strong>Aslam Rashid Shaikh</strong>, Senior Software Developer &amp; Full Stack .NET Engineer (4.6+
+          yrs exp in Tier-1 banking applications). Delighted to have you visit!
+        </p>
+        <div class="toast-actions">
+          <a href="#projects" class="toast-btn toast-btn-primary" id="toast-explore-btn">
+            <span>Explore Work</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="assets/Aslam_Shaikh_Resume.pdf" download="Aslam_Shaikh_Senior_DotNet_Resume.pdf" target="_blank"
+            rel="noopener noreferrer" class="toast-btn toast-btn-outline resume-download-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            <span>Resume</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Interactive Project Case Study & Architecture Modal -->
+  <dialog id="case-study-dialog" aria-labelledby="case-study-modal-title">
+    <div id="case-study-modal-content">
+      <!-- Populated dynamically by main.js -->
+    </div>
+    <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+      <button id="close-case-study-modal" class="btn btn-secondary btn-sm">Close Case Study</button>
+    </div>
+  </dialog>
+
+  <!-- CDN Dependencies: Three.js for 3D Hero -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Core Application Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Resume &amp; Portfolio Management | Aslam Rashid Shaikh</title>
+  
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <!-- Admin Navigation Header -->
+  <header class="admin-navbar">
+    <div class="admin-brand">
+      <a href="/" style="display: flex; align-items: center; gap: 8px; color: #fff; text-decoration: none;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <span class="admin-badge">Admin Console</span>
+    </div>
+
+    <div class="admin-nav-actions">
+      <span id="firebase-status-pill" class="status-pill offline">Local Mode</span>
+      <button id="update-password-trigger" class="btn btn-secondary btn-sm" style="display: none;" title="Update password">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <span>Change Password</span>
+      </button>
+      <button id="admin-logout-btn" class="btn btn-secondary btn-sm" style="display: none;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        <span>Logout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="admin-container">
+    <!-- AUTHENTICATION VIEW (LOGIN) -->
+    <section class="auth-wrapper" id="auth-section">
+      <div class="auth-card">
+        <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(59, 130, 246, 0.15); border: 1px solid var(--admin-border); display: flex; align-items: center; justify-content: center; color: var(--admin-cyan-bright); margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <h2>Administrator Sign-In</h2>
+        <p>Restricted strictly to the portfolio owner: <strong>Aslam Shaikh</strong>.</p>
+
+        <div id="auth-alert" class="admin-alert" role="alert" style="display: none;"></div>
+
+        <form id="admin-login-form">
+          <div class="form-group">
+            <label for="login-email" class="form-label">Admin Email</label>
+            <input id="login-email" class="form-input" type="email" placeholder="Enter administrator email..." required autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label for="login-password" class="form-label" style="margin-bottom: 0;">Password</label>
+              <button type="button" id="forgot-password-trigger" style="background: none; border: none; color: var(--admin-cyan-bright); font-size: 0.82rem; cursor: pointer; text-decoration: underline;">
+                Forgot Password?
+              </button>
+            </div>
+            <div style="position: relative;">
+              <input id="login-password" class="form-input" type="password" placeholder="Enter your password..." required autocomplete="current-password" style="padding-right: 44px;">
+              <button type="button" id="toggle-login-pass-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--admin-muted); cursor: pointer; font-size: 0.95rem; padding: 4px;" title="Show or hide password">
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+            <span>Authenticate &amp; Open Dashboard</span>
+            &rarr;
+          </button>
+        </form>
+
+        <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--admin-border); font-size: 0.8rem; color: var(--admin-muted);">
+          <strong>Note:</strong> Connects to Firebase Authentication when API keys are configured. You can also sign in locally with your password to manage your live resume and settings immediately.
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTHENTICATED DASHBOARD VIEW -->
+    <section id="dashboard-section" style="display: none;">
+      <div style="margin-bottom: 28px;">
+        <h1 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 4px;">Portfolio Management Console</h1>
+        <p style="color: var(--admin-muted); font-size: 0.95rem;">
+          Welcome, <strong>Aslam Rashid Shaikh</strong>. Update your resume, availability, and routing without touching source code.
+        </p>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- 1. RESUME MANAGEMENT CARD -->
+        <div class="admin-card" style="grid-column: 1 / -1;">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <span>Resume Upload &amp; Replacement</span>
+            </h2>
+            <div style="display: flex; gap: 8px;">
+              <button id="preview-resume-btn" class="btn btn-secondary btn-sm">Preview Resume</button>
+              <a id="download-resume-btn" href="#" class="btn btn-secondary btn-sm" download>Download</a>
+              <button id="revert-resume-btn" class="btn btn-danger btn-sm" style="display: none;">Revert to Backup</button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding: 14px 18px; border-radius: 10px; background: rgba(59, 130, 246, 0.08); border: 1px solid var(--admin-border);">
+            <div>
+              <div style="font-size: 0.8rem; color: var(--admin-muted); text-transform: uppercase;">Current Published Resume</div>
+              <div style="font-size: 1.05rem; font-weight: 700; color: #fff;" id="current-resume-name">Aslam_Shaikh_Senior_DotNet_Resume.pdf</div>
+              <div style="font-size: 0.8rem; color: var(--admin-dim);" id="current-resume-date">Initial version</div>
+            </div>
+            <span class="status-pill online">Published &amp; Active</span>
+          </div>
+
+          <!-- Upload Alerts -->
+          <div id="resume-alert" class="admin-alert" role="status"></div>
+
+          <!-- Drag and Drop Zone -->
+          <div class="dropzone" id="resume-dropzone">
+            <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            <h3 class="dropzone-title">Click to Browse or Drag &amp; Drop New Resume PDF</h3>
+            <p class="dropzone-hint">Valid formats: PDF documents only (.pdf) &bull; Maximum file size: 10MB</p>
+            <input type="file" id="resume-file-input" accept="application/pdf,.pdf" style="display: none;">
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="progress-container" id="resume-progress-container">
+            <div class="progress-bar" id="resume-progress-bar"></div>
+          </div>
+
+          <!-- Embedded PDF Preview Box -->
+          <div id="pdf-preview-container" style="display: none;">
+            <div style="font-size: 0.88rem; font-weight: 600; margin-bottom: 8px;">Resume Live Preview:</div>
+            <div class="pdf-preview-box">
+              <iframe id="pdf-preview-iframe" title="Resume Document Preview"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. AVAILABILITY & PROFILE CARD -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              <span>Recruiter Availability</span>
+            </h2>
+          </div>
+
+          <div id="settings-alert" class="admin-alert" role="status"></div>
+
+          <div class="form-group">
+            <label class="switch-label">
+              <div>
+                <strong>Active Job Seeking Status</strong>
+                <div style="font-size: 0.8rem; color: var(--admin-muted);">Controls the glowing green badge in hero section</div>
+              </div>
+              <div class="switch-wrapper">
+                <input type="checkbox" id="availability-toggle" checked>
+                <span class="switch-slider"></span>
+              </div>
+            </label>
+          </div>
+
+          <div class="form-group" style="margin-top: 18px;">
+            <label for="availability-text-input" class="form-label">Badge Announcement Text</label>
+            <input id="availability-text-input" class="form-input" type="text" value="Available for Senior .NET / Full Stack Roles">
+          </div>
+
+          <button id="save-availability-btn" class="btn btn-primary btn-sm" style="width: 100%;">
+            <span>Save Availability Status</span>
+          </button>
+        </div>
+
+        <!-- 3. EMAIL GATEWAYS & AUTO-REPLY STATUS -->
+        <!-- 3. EMAIL & AUTO-REPLY SETTINGS -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>Email Gateway &amp; Auto-Reply</span>
+            </h2>
+          </div>
+
+          <!-- Google Apps Script Gateway (Primary Recommended 100% Free Dual-Email) -->
+          <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.35); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <strong style="color: #38bdf8; font-size: 0.92rem;">Direct Gmail Auto-Reply Gateway</strong>
+              <span class="status-pill online">100% Free &bull; Native Gmail</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--admin-muted); margin-bottom: 10px; line-height: 1.45;">
+              Dispatches inquiry to <strong>shaikhaslame0@gmail.com</strong> AND sends an instant confirmation email to the sender from your Gmail with subject <em>"Thank You for Connecting – Aslam Shaikh"</em>.
+            </p>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="gas-webhook-url" class="form-label" style="font-size: 0.78rem;">Google Apps Script Web App URL (Active Endpoint)</label>
+              <input id="gas-webhook-url" class="form-input" type="url" value="https://script.google.com/macros/s/AKfycbyXNo-CBwCWhQA17ro2mtDAm45qQRQZvDZK_sQt1uNdtRwtXm0oaFoRtHZHS0b0u1-b/exec" placeholder="https://script.google.com/macros/s/.../exec" style="font-size: 0.82rem;">
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" id="copy-gas-code-btn" class="btn btn-secondary btn-sm" style="flex: 1; font-size: 0.78rem;">
+                <span>📋 Copy Apps Script Code</span>
+              </button>
+              <button type="button" id="test-email-btn" class="btn btn-secondary btn-sm" style="flex: 1; font-size: 0.78rem;">
+                <span>✉️ Test Send</span>
+              </button>
+            </div>
+            <div id="test-email-status" style="font-size: 0.76rem; margin-top: 6px; display: none;"></div>
+          </div>
+
+          <!-- EmailJS / Backup Gateway -->
+          <div style="border-top: 1px solid var(--admin-border); padding-top: 12px; margin-top: 12px;">
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--admin-muted); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;">Backup Email Gateway (EmailJS):</span>
+
+            <div class="form-group">
+              <label for="emailjs-service-id" class="form-label">EmailJS Service ID</label>
+              <input id="emailjs-service-id" class="form-input" type="text" value="service_pbmmpmp">
+            </div>
+
+            <div class="form-group">
+              <label for="emailjs-template-id" class="form-label">EmailJS Template ID (Optional)</label>
+              <input id="emailjs-template-id" class="form-input" type="text" placeholder="e.g. template_xxxxxxx">
+            </div>
+
+            <div class="form-group">
+              <label for="emailjs-public-key" class="form-label">EmailJS Public Key (Optional)</label>
+              <input id="emailjs-public-key" class="form-input" type="text" placeholder="Found in EmailJS Account > Public Key">
+            </div>
+          </div>
+
+          <div id="email-settings-alert" class="admin-alert" role="status" style="margin-top: 10px; display: none;"></div>
+
+          <button id="save-emailjs-btn" class="btn btn-primary btn-sm" style="width: 100%; margin-top: 10px;">
+            <span>Save Email Settings</span>
+          </button>
+        </div>
+
+        <!-- 4. RECRUITER INQUIRIES INBOX -->
+        <div class="admin-card" style="grid-column: 1 / -1;">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg>
+              <span>Recruiter Inquiries Inbox (<span id="inbox-count">0</span>)</span>
+            </h2>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button id="refresh-inbox-btn" class="btn btn-secondary btn-sm" title="Sync live inquiries from Google Apps Script">🔄 Refresh Inbox</button>
+              <button id="clear-inbox-btn" class="btn btn-secondary btn-sm" style="display: none;">Clear Inbox</button>
+            </div>
+          </div>
+
+          <div id="inbox-sync-alert" class="admin-alert" style="display: none; margin-bottom: 14px;"></div>
+
+          <div id="inbox-list" style="display: grid; gap: 14px;">
+            <!-- Populated dynamically by admin.js -->
+            <div style="text-align: center; padding: 30px; color: var(--admin-dim); font-size: 0.9rem;">
+              No recruiter messages recorded yet. Any submissions from your "Let's Connect" form will be stored here.
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. FIREBASE CLOUD INTEGRATION CARD -->
+        <div class="admin-card" style="grid-column: 1 / -1;">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.455 8.369c-.538-.748-1.778-2.285-3.681-4.569-.826-.991-1.535-1.832-1.884-2.245a146 146 0 0 0-.488-.576l-.207-.245-.113-.133-.022-.032-.01-.005L12.57 0l-.609.488c-1.555 1.246-2.828 2.851-3.681 4.64-.523 1.064-.864 2.105-1.043 3.176-.047.241-.088.489-.121.738-.209-.017-.421-.028-.632-.033-.018-.001-.035-.002-.059-.003a7.46 7.46 0 0 0-2.28.274l-.317.089-.163.286c-.765 1.342-1.198 2.869-1.252 4.416-.07 2.01.477 3.954 1.583 5.625 1.082 1.633 2.61 2.882 4.42 3.611l.236.095.071.025.003-.001a9.59 9.59 0 0 0 2.941.568q.171.006.342.006c1.273 0 2.513-.249 3.69-.742l.008.004.313-.145a9.63 9.63 0 0 0 3.927-3.335c1.01-1.49 1.577-3.234 1.641-5.042.075-2.161-.643-4.304-2.133-6.371"/></svg>
+              <span>Firebase Project Connection ("my-portfolio-website-4f201")</span>
+            </h2>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 18px;">
+            <div class="form-group">
+              <label for="fb-project-id" class="form-label">Firebase Project ID</label>
+              <input id="fb-project-id" class="form-input" type="text" value="my-portfolio-website-4f201">
+            </div>
+
+            <div class="form-group">
+              <label for="fb-storage-bucket" class="form-label">Storage Bucket</label>
+              <input id="fb-storage-bucket" class="form-input" type="text" value="my-portfolio-website-4f201.appspot.com">
+            </div>
+
+            <div class="form-group">
+              <label for="fb-api-key" class="form-label">Web API Key</label>
+              <input id="fb-api-key" class="form-input" type="text" placeholder="Paste from Firebase Project Settings > General">
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+            <button id="save-firebase-btn" class="btn btn-secondary btn-sm">
+              <span>Save Firebase Configuration</span>
+            </button>
+            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--admin-dim);">
+              Deploy via CLI: <code>npx firebase-tools deploy</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <dialog id="forgot-password-dialog" class="admin-modal" aria-labelledby="forgot-title">
+      <div class="modal-header">
+        <h3 id="forgot-title" style="font-size: 1.25rem; font-weight: 700;">Reset Account Password</h3>
+        <button type="button" class="modal-close-btn" id="close-forgot-pass-modal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div id="forgot-alert" class="admin-alert" role="status"></div>
+
+      <!-- Step 1: Send Verification Code to Email -->
+      <div id="forgot-step-1">
+        <p style="color: var(--admin-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 22px;">
+          To verify account ownership, a 6-digit one-time reset code will be generated and dispatched to your registered email:
+          <strong style="color: #fff; display: block; margin-top: 6px;">shaikhaslame0@gmail.com</strong>
+        </p>
+        <button type="button" id="send-reset-code-btn" class="btn btn-primary" style="width: 100%;">
+          <span>Send Code to shaikhaslame0@gmail.com</span>
+        </button>
+      </div>
+
+      <!-- Step 2: Enter Code & New Password -->
+      <form id="forgot-step-2" style="display: none;">
+        <p style="color: #86efac; font-size: 0.88rem; margin-bottom: 16px; background: rgba(16, 185, 129, 0.1); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
+          ✓ Verification code sent to <strong>shaikhaslame0@gmail.com</strong>. Please check your inbox or spam folder.
+        </p>
+        <div class="form-group">
+          <label for="reset-otp-input" class="form-label">6-Digit Verification Code</label>
+          <input id="reset-otp-input" class="form-input" type="text" maxlength="6" placeholder="e.g. 583921" required style="font-family: var(--font-mono); letter-spacing: 0.25em; font-size: 1.2rem; text-align: center;">
+        </div>
+        <div class="form-group">
+          <label for="reset-new-pass" class="form-label">New Password</label>
+          <input id="reset-new-pass" class="form-input" type="password" placeholder="At least 6 characters..." required>
+        </div>
+        <div class="form-group">
+          <label for="reset-confirm-pass" class="form-label">Confirm New Password</label>
+          <input id="reset-confirm-pass" class="form-input" type="password" placeholder="Re-enter new password..." required>
+        </div>
+        <button type="submit" id="confirm-reset-pass-btn" class="btn btn-primary" style="width: 100%; margin-top: 6px;">
+          <span>Verify &amp; Save New Password</span>
+        </button>
+      </form>
+    </dialog>
+
+    <!-- UPDATE PASSWORD MODAL -->
+    <dialog id="update-password-dialog" class="admin-modal" aria-labelledby="update-title">
+      <div class="modal-header">
+        <h3 id="update-title" style="font-size: 1.25rem; font-weight: 700;">Update Account Password</h3>
+        <button type="button" class="modal-close-btn" id="close-update-pass-modal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div id="update-pass-alert" class="admin-alert" role="status"></div>
+
+      <form id="update-password-form">
+        <div class="form-group">
+          <label for="current-pass-input" class="form-label">Current Password</label>
+          <input id="current-pass-input" class="form-input" type="password" placeholder="Enter current password..." required>
+        </div>
+        <div class="form-group">
+          <label for="new-pass-input" class="form-label">New Password</label>
+          <input id="new-pass-input" class="form-input" type="password" placeholder="At least 6 characters..." required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-new-pass-input" class="form-label">Confirm New Password</label>
+          <input id="confirm-new-pass-input" class="form-input" type="password" placeholder="Re-enter new password..." required>
+        </div>
+        <button type="submit" id="save-new-pass-btn" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+          <span>Save</span>
+        </button>
+      </form>
+    </dialog>
+  </main>
+
+  <!-- Firebase Compat SDKs (App, Auth, Firestore, Storage) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+  <!-- Admin Application Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
+

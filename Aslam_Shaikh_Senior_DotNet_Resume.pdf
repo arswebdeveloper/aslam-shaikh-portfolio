@@ -1,0 +1,65 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >> endobj
+4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> endobj
+5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+6 0 obj << /Length 3742 >> stream
+BT
+/F1 18 Tf 50 800 Td (ASLAM RASHID SHAIKH) Tj
+/F1 11 Tf 0 -18 Td (Senior Software Developer | Full Stack .NET Developer) Tj
+/F2 9 Tf 0 -14 Td (Email: shaikhaslame0@gmail.com | Phone: +91 8104537679 | Location: Navi Mumbai, India) Tj
+/F2 9 Tf 0 -12 Td (LinkedIn: linkedin.com/in/aslam-shaikh-4497581bb | GitHub: github.com/arswebdeveloper) Tj
+ET
+0.2 0.3 0.6 rg 50 740 495 1.5 re f
+BT
+/F1 12 Tf 50 722 Td (PROFESSIONAL SUMMARY) Tj
+/F2 9 Tf 0 -14 Td (Results-driven Full Stack .NET Developer with 4.6+ years of experience designing, developing,) Tj
+/F2 9 Tf 0 -11 Td (and maintaining scalable enterprise applications. Strong expertise in C#, ASP.NET MVC, .NET Core,) Tj
+/F2 9 Tf 0 -11 Td (Web API, Angular, and MS SQL Server. Experienced in RESTful API development, database optimization,) Tj
+/F2 9 Tf 0 -11 Td (UAT coordination, application deployment, and production support.) Tj
+/F1 12 Tf 0 -22 Td (TECHNICAL SKILLS) Tj
+/F1 9 Tf 0 -14 Td (Backend: ) Tj /F2 9 Tf 45 0 Td (C#, .NET Core, ASP.NET MVC, ASP.NET Web API, REST APIs, Entity Framework, ADO.NET, XML) Tj
+/F1 9 Tf -45 -12 Td (Frontend: ) Tj /F2 9 Tf 45 0 Td (Angular (incl. v17), AngularJS, TypeScript, JavaScript, jQuery, HTML5, CSS3, Bootstrap) Tj
+/F1 9 Tf -45 -12 Td (Databases: ) Tj /F2 9 Tf 50 0 Td (Microsoft SQL Server, PostgreSQL, MySQL) Tj
+/F1 9 Tf -50 -12 Td (Desktop: ) Tj /F2 9 Tf 40 0 Td (WPF, WinForms) Tj
+/F1 9 Tf -40 -12 Td (Cloud/DevOps: ) Tj /F2 9 Tf 65 0 Td (Microsoft Azure, Azure Services, Jenkins CI/CD, Git, SVN) Tj
+/F1 9 Tf -65 -12 Td (Domains: ) Tj /F2 9 Tf 45 0 Td (Banking Enterprise Systems, Kiosk Management, Queue Management) Tj
+/F1 12 Tf -45 -22 Td (PROFESSIONAL EXPERIENCE) Tj
+/F1 10 Tf 0 -14 Td (Sr. Software Developer - Aurionpro Solutions Ltd.) Tj /F2 9 Tf 260 0 Td (Oct 2023 - Present) Tj
+/F2 8.5 Tf -260 -12 Td (- Engineered banking applications for SBI, Union Bank of India and Bank of Muscat (Oman).) Tj
+/F2 8.5 Tf 0 -10 Td (- Developed backend RESTful APIs with C# and .NET Core backed by MS SQL Server.) Tj
+/F2 8.5 Tf 0 -10 Td (- Built and integrated Angular, AngularJS and WPF frontend interfaces.) Tj
+/F2 8.5 Tf 0 -10 Td (- Managed UAT cycles, resolved live production issues and coordinated deployments.) Tj
+/F1 9 Tf 0 -14 Td (Key Aurionpro Projects:) Tj
+/F2 8.5 Tf 0 -10 Td (* SBI Kiosk Management System: Multistate monitoring, batch processing, holiday sync (WPF, C#, SQL)) Tj
+/F2 8.5 Tf 0 -10 Td (* Union Bank of India QMS: Token management, real-time display, TTS/STT speech recognition) Tj
+/F2 8.5 Tf 0 -10 Td (* Bank of Muscat QMS: Customized workflows, multilingual localization, speech recognition) Tj
+/F1 10 Tf 0 -16 Td (Software Developer - Kadvekar Consultancy Services Pvt. Ltd.) Tj /F2 9 Tf 260 0 Td (Mar 2023 - Aug 2023) Tj
+/F2 8.5 Tf -260 -12 Td (- Built web applications using ASP.NET MVC, C#, Web API, ADO.NET and .NET Core.) Tj
+/F2 8.5 Tf 0 -10 Td (- Developed UI components with HTML, CSS, JavaScript, jQuery, and Bootstrap.) Tj
+/F1 10 Tf 0 -16 Td (Software Trainee - NeoQuant Solutions Pvt. Ltd.) Tj /F2 9 Tf 260 0 Td (Mar 2022 - Feb 2023) Tj
+/F2 8.5 Tf -260 -12 Td (- Built full stack components with C#, ASP.NET, ADO.NET and SQL Server.) Tj
+/F1 12 Tf 0 -22 Td (FREELANCE PROJECTS) Tj
+/F1 9.5 Tf 0 -13 Td (Little Champs Pre-Primary School Website (Live: littlechampspreprimaryschool.in)) Tj
+/F2 8.5 Tf 0 -11 Td (- Designed and deployed responsive Angular 17 site on Firebase with EmailJS contact integration.) Tj
+/F1 12 Tf 0 -22 Td (EDUCATION & CERTIFICATIONS) Tj
+/F1 9 Tf 0 -13 Td (B.Sc. Information Technology - University of Mumbai) Tj /F2 9 Tf 230 0 Td (2020 | Grade A (8.25 CGPI)) Tj
+/F1 9 Tf -230 -12 Td (.NET Full Stack Developer Certification - Dcodetech Industrial Training) Tj /F2 9 Tf 230 0 Td (2021) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000000 00000 n 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000326 00000 n 
+0000000396 00000 n 
+trailer << /Size 7 /Root 1 0 R >>
+startxref
+4190
+%%EOF

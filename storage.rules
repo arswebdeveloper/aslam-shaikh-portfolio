@@ -1,0 +1,15 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Anyone can read and download published resumes
+    match /resumes/{allPaths=**} {
+      allow read: if true;
+      // Only authorized admin (Aslam) can upload, replace or delete resumes
+      allow write: if request.auth != null 
+                   && request.auth.token.email == "shaikhaslame0@gmail.com"
+                   && request.resource.contentType.matches('application/pdf')
+                   && request.resource.size < 10 * 1024 * 1024;
+    }
+  }
+}
+

@@ -1,0 +1,25 @@
+{
+  "name": "aslam-rashid-shaikh-portfolio",
+  "version": "2.0.0",
+  "description": "Premium Recruiter-Focused Personal Portfolio of Aslam Rashid Shaikh - Senior Software Developer | Full Stack .NET Developer",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000 .",
+    "login": "npx firebase-tools login",
+    "deploy": "npx firebase-tools deploy",
+    "deploy:hosting": "npx firebase-tools deploy --only hosting",
+    "deploy:rules": "npx firebase-tools deploy --only firestore:rules,storage"
+  },
+  "keywords": [
+    "portfolio",
+    "senior-developer",
+    "dotnet-core",
+    "csharp",
+    "angular",
+    "sql-server",
+    "firebase"
+  ],
+  "author": "Aslam Rashid Shaikh <shaikhaslame0@gmail.com>",
+  "license": "MIT"
+}
+
