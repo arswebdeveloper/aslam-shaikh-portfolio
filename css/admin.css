@@ -466,3 +466,170 @@ input:checked+.switch-slider:before {
 .modal-close-btn:hover {
   color: #fff;
 }
+
+/* ==========================================================================
+   Responsive Mobile Optimization for Admin Dashboard
+   Fixes Admin Console & Local Mode overlapping, headers, and grid cards
+   ========================================================================== */
+@media (max-width: 768px) {
+  .admin-navbar {
+    height: auto;
+    min-height: 56px;
+    padding: 12px 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .admin-brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1rem;
+    gap: 8px;
+  }
+
+  .admin-brand .back-link {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .admin-nav-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .admin-container {
+    margin: 16px auto;
+    padding: 0 12px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .admin-card {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .admin-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  .admin-card-title {
+    font-size: 1.05rem;
+  }
+
+  .header-action-btns {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-action-btns .btn {
+    flex: 1 1 auto;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .current-resume-meta {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px;
+    padding: 14px 14px !important;
+  }
+
+  .current-resume-meta .status-pill {
+    align-self: flex-start;
+  }
+
+  #current-resume-name {
+    word-break: break-all;
+    max-width: 100%;
+  }
+
+  .dropzone {
+    padding: 24px 12px;
+  }
+
+  .dropzone-title {
+    font-size: 0.95rem;
+  }
+
+  .dropzone-hint {
+    font-size: 0.78rem;
+    word-break: break-word;
+  }
+
+  .auth-wrapper {
+    min-height: calc(100vh - 120px);
+    padding: 12px;
+  }
+
+  .auth-card {
+    padding: 24px 16px;
+    margin: 0;
+    width: 100%;
+    border-radius: 14px;
+  }
+
+  .auth-card h2 {
+    font-size: 1.35rem;
+  }
+
+  .admin-modal {
+    width: calc(100% - 24px);
+    max-width: 100%;
+    padding: 20px 16px;
+    margin: auto;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-navbar {
+    padding: 10px 10px;
+    gap: 8px;
+  }
+
+  .admin-brand .back-link {
+    font-size: 0.88rem;
+  }
+
+  .admin-badge {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .status-pill {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .btn-sm {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    gap: 4px;
+  }
+
+  .admin-container {
+    padding: 0 8px;
+  }
+
+  .admin-card {
+    padding: 14px 12px;
+  }
+}

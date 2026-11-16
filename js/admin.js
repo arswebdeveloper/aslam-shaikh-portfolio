@@ -285,21 +285,21 @@
     inboxListEl.innerHTML = messages
       .map(
         msg => `
-      <div style="padding: 16px 20px; border-radius: 12px; background: rgba(10, 15, 30, 0.6); border: 1px solid var(--admin-border); display: flex; flex-direction: column; gap: 8px;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
-          <div>
+      <div class="inbox-item-card" style="padding: 16px; border-radius: 12px; background: rgba(10, 15, 30, 0.6); border: 1px solid var(--admin-border); display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 6px;">
+          <div style="word-break: break-word; max-width: 100%;">
             <strong style="color: #fff; font-size: 1rem;">${escapeHtml(msg.name)}</strong>
-            <span style="color: var(--admin-cyan-bright); font-size: 0.88rem; margin-left: 8px;">&lt;${escapeHtml(msg.email)}&gt;</span>
+            <span style="color: var(--admin-cyan-bright); font-size: 0.88rem; display: inline-block; word-break: break-all; margin-left: 6px;">&lt;${escapeHtml(msg.email)}&gt;</span>
           </div>
           <span style="font-size: 0.75rem; color: var(--admin-dim);">${new Date(msg.date).toLocaleString()}</span>
         </div>
-        <div style="font-weight: 600; color: #cbd5e1; font-size: 0.92rem;">Subject: ${escapeHtml(msg.subject)}</div>
-        <p style="color: var(--admin-muted); font-size: 0.9rem; white-space: pre-wrap; margin: 4px 0 10px;">${escapeHtml(msg.message)}</p>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <a href="mailto:${encodeURIComponent(msg.email)}?subject=${encodeURIComponent("Re: " + msg.subject)}" class="btn btn-primary btn-sm">
+        <div style="font-weight: 600; color: #cbd5e1; font-size: 0.92rem; word-break: break-word;">Subject: ${escapeHtml(msg.subject)}</div>
+        <p style="color: var(--admin-muted); font-size: 0.9rem; white-space: pre-wrap; word-break: break-word; margin: 4px 0 10px;">${escapeHtml(msg.message)}</p>
+        <div class="inbox-action-btns" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <a href="mailto:${encodeURIComponent(msg.email)}?subject=${encodeURIComponent("Re: " + msg.subject)}" class="btn btn-primary btn-sm" style="flex: 1 1 140px; text-align: center; justify-content: center;">
             Reply via Email &rarr;
           </a>
-          <button class="btn btn-danger btn-sm delete-inbox-item-btn" data-id="${msg.id}">
+          <button class="btn btn-danger btn-sm delete-inbox-item-btn" data-id="${msg.id}" style="flex: 0 1 auto;">
             Delete
           </button>
         </div>

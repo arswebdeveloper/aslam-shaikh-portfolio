@@ -19,7 +19,7 @@
   <!-- Admin Navigation Header -->
   <header class="admin-navbar">
     <div class="admin-brand">
-      <a href="/" style="display: flex; align-items: center; gap: 8px; color: #fff; text-decoration: none;">
+      <a href="/" class="back-link" style="display: flex; align-items: center; gap: 8px; color: #fff; text-decoration: none;">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         <span>Back to Portfolio</span>
       </a>
@@ -102,14 +102,14 @@
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
               <span>Resume Upload &amp; Replacement</span>
             </h2>
-            <div style="display: flex; gap: 8px;">
+            <div class="header-action-btns" style="display: flex; gap: 8px;">
               <button id="preview-resume-btn" class="btn btn-secondary btn-sm">Preview Resume</button>
               <a id="download-resume-btn" href="#" class="btn btn-secondary btn-sm" download>Download</a>
               <button id="revert-resume-btn" class="btn btn-danger btn-sm" style="display: none;">Revert to Backup</button>
             </div>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding: 14px 18px; border-radius: 10px; background: rgba(59, 130, 246, 0.08); border: 1px solid var(--admin-border);">
+          <div class="current-resume-meta" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding: 14px 18px; border-radius: 10px; background: rgba(59, 130, 246, 0.08); border: 1px solid var(--admin-border);">
             <div>
               <div style="font-size: 0.8rem; color: var(--admin-muted); text-transform: uppercase;">Current Published Resume</div>
               <div style="font-size: 1.05rem; font-weight: 700; color: #fff;" id="current-resume-name">Aslam_Shaikh_Senior_DotNet_Resume.pdf</div>
@@ -247,7 +247,7 @@
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg>
               <span>Recruiter Inquiries Inbox (<span id="inbox-count">0</span>)</span>
             </h2>
-            <div style="display: flex; gap: 8px; align-items: center;">
+            <div class="header-action-btns" style="display: flex; gap: 8px; align-items: center;">
               <button id="refresh-inbox-btn" class="btn btn-secondary btn-sm" title="Sync live inquiries from Google Apps Script">🔄 Refresh Inbox</button>
               <button id="clear-inbox-btn" class="btn btn-secondary btn-sm" style="display: none;">Clear Inbox</button>
             </div>
