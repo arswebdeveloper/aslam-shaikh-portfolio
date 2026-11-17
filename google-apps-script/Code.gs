@@ -30,6 +30,43 @@ function doPost(e) {
     var message = (data.message || "").trim();
     var adminEmail = "shaikhaslame0@gmail.com";
 
+    // --------------------------------------------------------------------------
+    // ACTION: RESUME UPLOAD & CLOUD SYNC ACROSS ALL DEVICES
+    // --------------------------------------------------------------------------
+    if (data.action === "uploadResume") {
+      var filename = (data.filename || "Updated_Resume.pdf").trim();
+      var base64Data = data.fileData || "";
+      var downloadUrl = "";
+
+      try {
+        var rawBase64 = base64Data.indexOf(",") > -1 ? base64Data.split(",")[1] : base64Data;
+        var decoded = Utilities.base64Decode(rawBase64);
+        var blob = Utilities.newBlob(decoded, "application/pdf", filename);
+
+        var folders = DriveApp.getFoldersByName("Aslam_Portfolio_Resumes");
+        var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder("Aslam_Portfolio_Resumes");
+        var driveFile = folder.createFile(blob);
+        driveFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+        downloadUrl = "https://drive.google.com/uc?export=download&id=" + driveFile.getId();
+      } catch (driveErr) {
+        console.warn("Drive storage notice: " + driveErr);
+      }
+
+      var resumeMeta = {
+        name: filename,
+        url: downloadUrl || "",
+        updatedAt: data.updatedAt || new Date().toISOString(),
+        hasResume: true
+      };
+
+      var scriptProps = PropertiesService.getScriptProperties();
+      scriptProps.setProperty("ASLAM_ACTIVE_RESUME", JSON.stringify(resumeMeta));
+
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: "success", message: "Resume uploaded successfully.", resume: resumeMeta }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
     // Auto-correct common mobile keyboard typos (.co instead of .com)
     if (senderEmail.toLowerCase().endsWith("@gmail.co")) {
       senderEmail = senderEmail.slice(0, -3) + ".com";
@@ -188,6 +225,25 @@ function doGet(e) {
           .setMimeType(ContentService.MimeType.JAVASCRIPT);
       }
       return ContentService.createTextOutput(clearResp).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    if (action === "getResume" || action === "getInitData") {
+      var rawResume = scriptProps.getProperty("ASLAM_ACTIVE_RESUME");
+      var resumeObj = null;
+      if (rawResume) {
+        try { resumeObj = JSON.parse(rawResume); } catch (e) {}
+      }
+      var resumeData = {
+        status: "success",
+        hasResume: !!(resumeObj && resumeObj.hasResume && resumeObj.name),
+        resume: resumeObj
+      };
+      var resumeText = JSON.stringify(resumeData);
+      if (callback) {
+        return ContentService.createTextOutput(callback + "(" + resumeText + ")")
+          .setMimeType(ContentService.MimeType.JAVASCRIPT);
+      }
+      return ContentService.createTextOutput(resumeText).setMimeType(ContentService.MimeType.JSON);
     }
 
     var rawInbox = scriptProps.getProperty("ASLAM_INBOX_STORE") || "[]";

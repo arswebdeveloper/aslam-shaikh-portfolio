@@ -177,6 +177,7 @@
     if (logoutBtn) logoutBtn.style.display = "inline-flex";
     if (updatePasswordTriggerBtn) updatePasswordTriggerBtn.style.display = "inline-flex";
     loadDashboardData();
+    syncResumeFromCloud();
   }
 
   function handleLogoutState() {
@@ -217,20 +218,52 @@
       if (saved) custom = JSON.parse(saved);
     } catch (e) {}
 
-    activeResumeUrl = custom.resumeUrl || config.profile.defaultResumeUrl || "assets/Aslam_Shaikh_Resume.pdf";
-    activeResumeName = custom.resumeName || config.profile.defaultResumeName || "Aslam_Shaikh_Senior_DotNet_Resume.pdf";
+    const hasResume = !!(
+      custom.hasUpdatedResume &&
+      custom.resumeUrl &&
+      custom.resumeName &&
+      custom.resumeName !== "Aslam_Shaikh_Senior_DotNet_Resume.pdf"
+    );
+
+    activeResumeUrl = hasResume ? custom.resumeUrl : null;
+    activeResumeName = hasResume ? custom.resumeName : null;
     previousResumeUrl = custom.previousResumeUrl || null;
 
-    if (currentResumeNameEl) currentResumeNameEl.textContent = activeResumeName;
-    if (currentResumeDateEl) {
-      currentResumeDateEl.textContent = custom.resumeUpdatedAt
-        ? new Date(custom.resumeUpdatedAt).toLocaleString()
-        : "Initial base version";
-    }
+    const resumeBadge = document.getElementById("resume-status-badge");
 
-    if (downloadResumeBtn) {
-      downloadResumeBtn.href = activeResumeUrl;
-      downloadResumeBtn.setAttribute("download", activeResumeName);
+    if (hasResume) {
+      if (currentResumeNameEl) currentResumeNameEl.textContent = activeResumeName;
+      if (currentResumeDateEl) {
+        currentResumeDateEl.textContent = custom.resumeUpdatedAt
+          ? new Date(custom.resumeUpdatedAt).toLocaleString()
+          : "Recently updated";
+      }
+      if (resumeBadge) {
+        resumeBadge.className = "status-pill online";
+        resumeBadge.textContent = "Published & Active";
+      }
+      if (downloadResumeBtn) {
+        downloadResumeBtn.href = activeResumeUrl;
+        downloadResumeBtn.setAttribute("download", activeResumeName);
+        downloadResumeBtn.target = "_blank";
+        downloadResumeBtn.onclick = null;
+      }
+    } else {
+      if (currentResumeNameEl) currentResumeNameEl.textContent = "No updated resume uploaded yet";
+      if (currentResumeDateEl) currentResumeDateEl.textContent = "Pending upload from Admin Portal";
+      if (resumeBadge) {
+        resumeBadge.className = "status-pill offline";
+        resumeBadge.textContent = "Pending Upload";
+      }
+      if (downloadResumeBtn) {
+        downloadResumeBtn.href = "javascript:void(0)";
+        downloadResumeBtn.removeAttribute("download");
+        downloadResumeBtn.removeAttribute("target");
+        downloadResumeBtn.onclick = function (e) {
+          e.preventDefault();
+          showResumeAlert("Kindly upload updated resume", "error");
+        };
+      }
     }
 
     if (revertResumeBtn) {
@@ -705,8 +738,8 @@
   function handleResumeFile(file) {
     if (!file) return;
 
-    // Validate type (must be PDF)
-    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+    // Strict validation: Must be PDF format only
+    const isPdf = file.type === "application/pdf" || (file.name && file.name.toLowerCase().endsWith(".pdf"));
     if (!isPdf) {
       showResumeAlert("Invalid file format. Only PDF files (.pdf) are permitted.", "error");
       return;
@@ -722,56 +755,63 @@
     if (resumeProgressContainer) resumeProgressContainer.style.display = "block";
     if (resumeProgressBar) resumeProgressBar.style.width = "0%";
 
-    // If Firebase Storage is initialized and user is authenticated
-    if (fbStorage && currentAdminUser && currentAdminUser.uid && !currentAdminUser.uid.startsWith("local-admin")) {
-      const storageRef = fbStorage.ref(`resumes/${Date.now()}_${file.name}`);
-      const uploadTask = storageRef.put(file);
+    const reader = new FileReader();
+    reader.onprogress = e => {
+      if (e.lengthComputable && resumeProgressBar) {
+        const progress = Math.round((e.loaded / e.total) * 100);
+        resumeProgressBar.style.width = `${progress}%`;
+      }
+    };
+    reader.onload = function (e) {
+      const localUrl = e.target.result;
+      const uploadedAt = new Date().toISOString();
 
-      uploadTask.on(
-        "state_changed",
-        snapshot => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          if (resumeProgressBar) resumeProgressBar.style.width = `${progress}%`;
-        },
-        error => {
-          console.error("Firebase Storage Upload Error:", error);
-          showResumeAlert(`Upload failed: ${error.message}`, "error");
-          if (resumeProgressContainer) resumeProgressContainer.style.display = "none";
-        },
-        async () => {
-          const downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
-          saveResumeMetadata(downloadUrl, file.name);
-          if (resumeProgressBar) resumeProgressBar.style.width = "100%";
-          setTimeout(() => {
-            if (resumeProgressContainer) resumeProgressContainer.style.display = "none";
-          }, 600);
-          showResumeAlert("Resume uploaded to Firebase Cloud Storage and published successfully!", "success");
+      // Immediately save locally & refresh dashboard
+      saveResumeMetadata(localUrl, file.name, uploadedAt);
+
+      if (resumeProgressBar) resumeProgressBar.style.width = "100%";
+      setTimeout(() => {
+        if (resumeProgressContainer) resumeProgressContainer.style.display = "none";
+      }, 600);
+
+      showResumeAlert(`Resume "${file.name}" uploaded and published successfully!`, "success");
+
+      // Dispatch to Google Apps Script cloud sync so phone and laptop both receive it
+      const gasUrl = (gasWebhookUrlInput && gasWebhookUrlInput.value.trim()) ||
+        (config.gasWebhookUrl) ||
+        "https://script.google.com/macros/s/AKfycbyXNo-CBwCWhQA17ro2mtDAm45qQRQZvDZK_sQt1uNdtRwtXm0oaFoRtHZHS0b0u1-b/exec";
+
+      if (gasUrl) {
+        fetch(gasUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify({
+            action: "uploadResume",
+            filename: file.name,
+            fileData: localUrl,
+            updatedAt: uploadedAt
+          })
+        }).catch(err => console.warn("Google Apps Script cloud sync notice:", err));
+      }
+
+      // If Firebase Storage is initialized and authenticated, sync in background
+      if (fbStorage && currentAdminUser && currentAdminUser.uid && !currentAdminUser.uid.startsWith("local-admin")) {
+        try {
+          const storageRef = fbStorage.ref(`resumes/${Date.now()}_${file.name}`);
+          storageRef.put(file).then(snapshot => snapshot.ref.getDownloadURL()).then(cloudUrl => {
+            saveResumeMetadata(cloudUrl, file.name, uploadedAt);
+          }).catch(err => console.warn("Firebase Storage optional upload notice:", err));
+        } catch (fbErr) {
+          console.warn("Firebase Storage notice:", fbErr);
         }
-      );
-    } else {
-      // Local Mode: Use Blob Object URL or Base64 FileReader
-      const reader = new FileReader();
-      reader.onprogress = e => {
-        if (e.lengthComputable && resumeProgressBar) {
-          const progress = (e.loaded / e.total) * 100;
-          resumeProgressBar.style.width = `${progress}%`;
-        }
-      };
-      reader.onload = function (e) {
-        const localUrl = e.target.result;
-        saveResumeMetadata(localUrl, file.name);
-        if (resumeProgressBar) resumeProgressBar.style.width = "100%";
-        setTimeout(() => {
-          if (resumeProgressContainer) resumeProgressContainer.style.display = "none";
-        }, 600);
-        showResumeAlert(`Resume replaced successfully with "${file.name}"! Public website updated.`, "success");
-      };
-      reader.readAsDataURL(file);
-    }
+      }
+    };
+    reader.readAsDataURL(file);
   }
 
   // Save metadata to local storage and Firestore if online
-  function saveResumeMetadata(url, filename) {
+  function saveResumeMetadata(url, filename, updatedAt) {
     let custom = {};
     try {
       const saved = localStorage.getItem("aslam_portfolio_custom_config");
@@ -786,7 +826,8 @@
 
     custom.resumeUrl = url;
     custom.resumeName = filename;
-    custom.resumeUpdatedAt = new Date().toISOString();
+    custom.hasUpdatedResume = true;
+    custom.resumeUpdatedAt = updatedAt || new Date().toISOString();
 
     localStorage.setItem("aslam_portfolio_custom_config", JSON.stringify(custom));
 
@@ -841,11 +882,51 @@
   // Preview Resume Button
   if (previewResumeBtn) {
     previewResumeBtn.addEventListener("click", () => {
+      if (!activeResumeUrl) {
+        showResumeAlert("Kindly upload updated resume", "error");
+        return;
+      }
       if (pdfPreviewContainer && pdfPreviewIframe) {
         pdfPreviewIframe.src = activeResumeUrl;
         pdfPreviewContainer.style.display = pdfPreviewContainer.style.display === "none" ? "block" : "none";
       }
     });
+  }
+
+  // Synchronize active resume from Google Apps Script across devices (Phone <-> Laptop)
+  async function syncResumeFromCloud() {
+    const gasUrl = (gasWebhookUrlInput && gasWebhookUrlInput.value.trim()) ||
+      (config.gasWebhookUrl) ||
+      "https://script.google.com/macros/s/AKfycbyXNo-CBwCWhQA17ro2mtDAm45qQRQZvDZK_sQt1uNdtRwtXm0oaFoRtHZHS0b0u1-b/exec";
+    if (!gasUrl) return;
+
+    try {
+      const res = await fetchGasJsonp(gasUrl, { action: "getResume" }, 7000);
+      if (res && res.status === "success" && res.hasResume && res.resume && res.resume.name) {
+        const cloudName = res.resume.name;
+        const cloudUrl = res.resume.url;
+        const cloudDate = res.resume.updatedAt;
+
+        if (cloudName && cloudName !== "Aslam_Shaikh_Senior_DotNet_Resume.pdf") {
+          let custom = {};
+          try {
+            const saved = localStorage.getItem("aslam_portfolio_custom_config");
+            if (saved) custom = JSON.parse(saved);
+          } catch (e) {}
+
+          const finalUrl = (custom.resumeName === cloudName && custom.resumeUrl) ? custom.resumeUrl : cloudUrl;
+          custom.resumeName = cloudName;
+          custom.resumeUrl = finalUrl || cloudUrl;
+          custom.hasUpdatedResume = true;
+          custom.resumeUpdatedAt = cloudDate;
+          localStorage.setItem("aslam_portfolio_custom_config", JSON.stringify(custom));
+
+          loadDashboardData();
+        }
+      }
+    } catch (e) {
+      console.warn("Cloud resume sync notice (admin):", e);
+    }
   }
 
   // Revert / Rollback to previous resume
@@ -944,6 +1025,41 @@ function doPost(e) {
     var subject = (data.subject || "Portfolio Inquiry").trim();
     var message = (data.message || "").trim();
     var adminEmail = "shaikhaslame0@gmail.com";
+
+    // ACTION: RESUME UPLOAD & CLOUD SYNC ACROSS ALL DEVICES
+    if (data.action === "uploadResume") {
+      var filename = (data.filename || "Updated_Resume.pdf").trim();
+      var base64Data = data.fileData || "";
+      var downloadUrl = "";
+
+      try {
+        var rawBase64 = base64Data.indexOf(",") > -1 ? base64Data.split(",")[1] : base64Data;
+        var decoded = Utilities.base64Decode(rawBase64);
+        var blob = Utilities.newBlob(decoded, "application/pdf", filename);
+
+        var folders = DriveApp.getFoldersByName("Aslam_Portfolio_Resumes");
+        var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder("Aslam_Portfolio_Resumes");
+        var driveFile = folder.createFile(blob);
+        driveFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+        downloadUrl = "https://drive.google.com/uc?export=download&id=" + driveFile.getId();
+      } catch (driveErr) {
+        console.warn("Drive storage notice: " + driveErr);
+      }
+
+      var resumeMeta = {
+        name: filename,
+        url: downloadUrl || "",
+        updatedAt: data.updatedAt || new Date().toISOString(),
+        hasResume: true
+      };
+
+      var scriptProps = PropertiesService.getScriptProperties();
+      scriptProps.setProperty("ASLAM_ACTIVE_RESUME", JSON.stringify(resumeMeta));
+
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: "success", message: "Resume uploaded successfully.", resume: resumeMeta }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
 
     // Auto-correct common mobile keyboard typos (.co -> .com)
     if (senderEmail.toLowerCase().endsWith("@gmail.co")) {
@@ -1090,6 +1206,25 @@ function doGet(e) {
       return ContentService.createTextOutput(clearResp).setMimeType(ContentService.MimeType.JSON);
     }
 
+    if (action === "getResume" || action === "getInitData") {
+      var rawResume = scriptProps.getProperty("ASLAM_ACTIVE_RESUME");
+      var resumeObj = null;
+      if (rawResume) {
+        try { resumeObj = JSON.parse(rawResume); } catch (e) {}
+      }
+      var resumeData = {
+        status: "success",
+        hasResume: !!(resumeObj && resumeObj.hasResume && resumeObj.name),
+        resume: resumeObj
+      };
+      var resumeText = JSON.stringify(resumeData);
+      if (callback) {
+        return ContentService.createTextOutput(callback + "(" + resumeText + ")")
+          .setMimeType(ContentService.MimeType.JAVASCRIPT);
+      }
+      return ContentService.createTextOutput(resumeText).setMimeType(ContentService.MimeType.JSON);
+    }
+
     var rawInbox = scriptProps.getProperty("ASLAM_INBOX_STORE") || "[]";
     var inboxList = [];
     try { inboxList = JSON.parse(rawInbox); } catch (err) { inboxList = []; }
@@ -1196,6 +1331,7 @@ function doGet(e) {
   document.addEventListener("DOMContentLoaded", () => {
     initFirebase();
     checkSession();
+    syncResumeFromCloud();
   });
 })();
 

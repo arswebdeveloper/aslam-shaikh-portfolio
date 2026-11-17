@@ -16,6 +16,95 @@
   const $ = selector => document.querySelector(selector);
   const $$ = selector => document.querySelectorAll(selector);
 
+  // JSONP requester - bypasses browser CORS restrictions for Google Apps Script Web Apps
+  function fetchGasJsonp(url, params = {}, timeoutMs = 7000) {
+    return new Promise((resolve, reject) => {
+      const cbName = "gas_main_cb_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+      const script = document.createElement("script");
+      let timer = null;
+
+      function cleanup() {
+        if (timer) clearTimeout(timer);
+        try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+        if (script.parentNode) script.parentNode.removeChild(script);
+      }
+
+      window[cbName] = function (data) {
+        cleanup();
+        resolve(data);
+      };
+
+      timer = setTimeout(() => {
+        cleanup();
+        reject(new Error("Timeout waiting for response"));
+      }, timeoutMs);
+
+      script.onerror = function () {
+        cleanup();
+        reject(new Error("Network or script error reaching Web App"));
+      };
+
+      const queryParts = [];
+      for (const [k, v] of Object.entries(params)) {
+        queryParts.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
+      }
+      queryParts.push("callback=" + cbName);
+      queryParts.push("t=" + Date.now());
+
+      const sep = url.includes("?") ? "&" : "?";
+      script.src = url + sep + queryParts.join("&");
+      document.head.appendChild(script);
+    });
+  }
+
+  // Floating notification toast for user feedback (e.g. resume download validation)
+  function showToastNotification(message, type = "error") {
+    let toast = document.getElementById("portfolio-dynamic-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "portfolio-dynamic-toast";
+      toast.style.cssText = `
+        position: fixed;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-20px);
+        background: rgba(15, 23, 42, 0.95);
+        color: #f8fafc;
+        border: 1px solid rgba(244, 63, 94, 0.6);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(244, 63, 94, 0.25);
+        padding: 14px 24px;
+        border-radius: 14px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        z-index: 100000;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        backdrop-filter: blur(12px);
+      `;
+      document.body.appendChild(toast);
+    }
+    const iconColor = type === "error" ? "#f43f5e" : "#22d3ee";
+    toast.style.borderColor = type === "error" ? "rgba(244, 63, 94, 0.6)" : "rgba(34, 211, 238, 0.6)";
+    toast.innerHTML = `
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="${iconColor}" stroke-width="2.5" style="flex-shrink:0;">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span style="line-height: 1.4;">${message}</span>
+    `;
+    toast.style.opacity = "1";
+    toast.style.transform = "translateX(-50%) translateY(0)";
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(-50%) translateY(-20px)";
+    }, 4000);
+  }
+
   // SVG Icons Store
   const ICONS = {
     csharp: `<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M14.22.09v5.96l-3.74.5v3.53l3.74-.5v3.57l3.5-.46V9.1L24 8.26l-.46-3.46-5.83.78V.09zM6.29 1.15v5.96L0 7.95l.46 3.46 5.86-.78 3.46-.47V1.15zm3.52 9.72l-3.49.46v3.58l-6.19.83.47 3.46 5.82-.78v5.5h3.49v-5.97l3.61-.48v-3.58l-3.71.49zm13.73 1.74l-5.82.78-3.5.47v9.02h3.5v-5.96L24 16.07z"/></svg>`,
@@ -44,18 +133,80 @@
     return ICONS[key] || ICONS.code;
   }
 
+  // Helper to update resume download links across the entire page
+  function updateResumeDownloadButtons() {
+    const activeData = window.getActivePortfolioData ? window.getActivePortfolioData() : config;
+    const prof = (activeData && activeData.profile) || {};
+    const hasResume = !!(
+      prof.hasUpdatedResume &&
+      prof.defaultResumeUrl &&
+      prof.defaultResumeName &&
+      prof.defaultResumeName !== "Aslam_Shaikh_Senior_DotNet_Resume.pdf"
+    );
+
+    $$(".resume-download-btn").forEach(btn => {
+      if (hasResume) {
+        btn.href = prof.defaultResumeUrl;
+        btn.setAttribute("download", prof.defaultResumeName);
+        btn.setAttribute("target", "_blank");
+        btn.onclick = null;
+      } else {
+        btn.href = "javascript:void(0)";
+        btn.removeAttribute("download");
+        btn.removeAttribute("target");
+        btn.onclick = function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          showToastNotification("Kindly upload updated resume", "error");
+        };
+      }
+    });
+  }
+
+  // Sync latest resume uploaded from Admin Portal across all devices (mobile & desktop)
+  async function syncResumeFromCloud() {
+    const activeData = window.getActivePortfolioData ? window.getActivePortfolioData() : config;
+    const gasUrl = (activeData.email && activeData.email.gasWebhookUrl) ||
+      activeData.gasWebhookUrl ||
+      "https://script.google.com/macros/s/AKfycbyXNo-CBwCWhQA17ro2mtDAm45qQRQZvDZK_sQt1uNdtRwtXm0oaFoRtHZHS0b0u1-b/exec";
+    if (!gasUrl) return;
+
+    try {
+      const res = await fetchGasJsonp(gasUrl, { action: "getResume" }, 7000);
+      if (res && res.status === "success" && res.hasResume && res.resume && res.resume.name) {
+        const cloudName = res.resume.name;
+        const cloudUrl = res.resume.url;
+        const cloudDate = res.resume.updatedAt;
+
+        if (cloudName && cloudName !== "Aslam_Shaikh_Senior_DotNet_Resume.pdf") {
+          let custom = {};
+          try {
+            const saved = localStorage.getItem("aslam_portfolio_custom_config");
+            if (saved) custom = JSON.parse(saved);
+          } catch (e) {}
+
+          const finalUrl = (custom.resumeName === cloudName && custom.resumeUrl) ? custom.resumeUrl : cloudUrl;
+          custom.resumeName = cloudName;
+          custom.resumeUrl = finalUrl || cloudUrl;
+          custom.hasUpdatedResume = true;
+          custom.resumeUpdatedAt = cloudDate;
+          localStorage.setItem("aslam_portfolio_custom_config", JSON.stringify(custom));
+
+          updateResumeDownloadButtons();
+        }
+      }
+    } catch (e) {
+      console.warn("Cloud resume sync check notice:", e);
+    }
+  }
+
   // 1. Initialize Profile & Hero Information
   function initProfile() {
-    const prof = config.profile;
-    const resumeUrl = prof.defaultResumeUrl || "assets/Aslam_Shaikh_Resume.pdf";
-    const resumeName = prof.defaultResumeName || "Aslam_Shaikh_Senior_DotNet_Resume.pdf";
+    const activeData = window.getActivePortfolioData ? window.getActivePortfolioData() : config;
+    const prof = activeData.profile || {};
 
-    // Update all resume download buttons
-    $$(".resume-download-btn").forEach(btn => {
-      btn.href = resumeUrl;
-      btn.setAttribute("download", resumeName);
-      btn.setAttribute("target", "_blank");
-    });
+    // Update all resume download buttons with strict validation
+    updateResumeDownloadButtons();
 
     // Update availability pill
     const availPill = $("#availability-badge");
@@ -888,6 +1039,7 @@ Navi Mumbai, Maharashtra, India`;
   // Document Ready
   document.addEventListener("DOMContentLoaded", () => {
     initProfile();
+    syncResumeFromCloud();
     renderStats();
     renderSkills();
     renderExperience();

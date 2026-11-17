@@ -18,8 +18,9 @@ const PORTFOLIO_DATA = {
     availabilityText: "Available for Full-Time Roles & Freelance Projects",
     linkedin: "https://www.linkedin.com/in/aslam-shaikh-4497581bb",
     github: "https://github.com/arswebdeveloper",
-    defaultResumeUrl: "assets/Aslam_Shaikh_Resume.pdf",
-    defaultResumeName: "Aslam_Shaikh_Senior_DotNet_Resume.pdf",
+    defaultResumeUrl: "",
+    defaultResumeName: "",
+    hasUpdatedResume: false,
     resumePreviewImage: "assets/resume_preview.jpg"
   },
 
@@ -337,8 +338,16 @@ function getActivePortfolioData() {
     const saved = localStorage.getItem("aslam_portfolio_custom_config");
     if (saved) {
       const parsed = JSON.parse(saved);
-      if (parsed.resumeUrl) data.profile.defaultResumeUrl = parsed.resumeUrl;
-      if (parsed.resumeName) data.profile.defaultResumeName = parsed.resumeName;
+      if (parsed.resumeUrl && parsed.hasUpdatedResume && parsed.resumeName && parsed.resumeName !== "Aslam_Shaikh_Senior_DotNet_Resume.pdf") {
+        data.profile.defaultResumeUrl = parsed.resumeUrl;
+        data.profile.defaultResumeName = parsed.resumeName;
+        data.profile.hasUpdatedResume = true;
+        data.profile.resumeUpdatedAt = parsed.resumeUpdatedAt;
+      } else {
+        data.profile.defaultResumeUrl = "";
+        data.profile.defaultResumeName = "";
+        data.profile.hasUpdatedResume = false;
+      }
       if (typeof parsed.available === "boolean") data.profile.available = parsed.available;
       if (parsed.gasWebhookUrl) data.gasWebhookUrl = parsed.gasWebhookUrl;
       if (parsed.emailjs) {
