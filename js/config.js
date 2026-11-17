@@ -18,6 +18,7 @@ const PORTFOLIO_DATA = {
     availabilityText: "Available for Full-Time Roles & Freelance Projects",
     linkedin: "https://www.linkedin.com/in/aslam-shaikh-4497581bb",
     github: "https://github.com/arswebdeveloper",
+    profileImage: "assets/images/profile.jpg",
     defaultResumeUrl: "",
     defaultResumeName: "",
     hasUpdatedResume: false,

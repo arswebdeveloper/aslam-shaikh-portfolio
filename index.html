@@ -131,57 +131,66 @@
       <div id="hero-3d-canvas-container" aria-hidden="true"></div>
       <div class="hero-overlay-glow" aria-hidden="true"></div>
 
-      <!-- Floating Code Diagnostics (3D Parallax Desktop) -->
-      <div class="hero-code-panels" aria-hidden="true">
-        <div class="code-panel">
-          <b>GET</b> /api/v1/queue/<i>token</i><br>
-          { "status": "<span>CALLED</span>", "counter": 4 }<br>
-          <b>await</b> speechEngine.<i>speakAsync</i>();
-        </div>
-        <div class="code-panel">
-          <b>public class</b> <i>KioskSyncWorker</i><br>
-          &nbsp;&nbsp;<b>await</b> ProcessBatchAsync();<br>
-          // Holiday-aware sync: <span>ACTIVE</span>
-        </div>
-      </div>
-
       <div class="container">
-        <div class="hero-content">
-          <!-- Availability Status Pill -->
-          <div class="availability-pill" id="availability-badge">
-            <span class="pulse-dot"></span>
-            <span class="avail-text">Available for Full-Time Roles &amp; Freelance Projects</span>
+        <div class="hero-layout-grid">
+          <!-- Left Column: Introduction & CTAs -->
+          <div class="hero-content">
+            <!-- Availability Status Pill -->
+            <div class="availability-pill" id="availability-badge">
+              <span class="pulse-dot"></span>
+              <span class="avail-text">Available for Full-Time Roles &amp; Freelance Projects</span>
+            </div>
+
+            <h1 class="hero-title">
+              Architecting Scalable Applications.<br>
+              <span class="gradient-text">Engineering Enterprise Solutions.</span>
+            </h1>
+
+            <p class="hero-subtitle">
+              Senior Software Developer &amp; Full Stack .NET Developer with <strong>4.6+ years</strong> of expertise
+              designing, building, and deploying mission-critical banking applications for <strong>5+ Tier-1 banking
+                clients</strong> including <strong>State Bank of India</strong>, <strong>Union Bank of India</strong>, and
+              <strong>Bank of Muscat</strong>.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="javascript:void(0)" class="btn btn-primary resume-download-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                </svg>
+                <span>Download Resume (PDF)</span>
+              </a>
+              <a href="#contact" class="btn btn-secondary">
+                <span>Let's Connect</span>
+                &rarr;
+              </a>
+            </div>
           </div>
 
-          <h1 class="hero-title">
-            Architecting Scalable Applications.<br>
-            <span class="gradient-text">Engineering Enterprise Solutions.</span>
-          </h1>
-
-          <p class="hero-subtitle">
-            Senior Software Developer &amp; Full Stack .NET Developer with <strong>4.6+ years</strong> of expertise
-            designing, building, and deploying mission-critical banking applications for <strong>5+ Tier-1 banking
-              clients</strong> including <strong>State Bank of India</strong>, <strong>Union Bank of India</strong>, and
-            <strong>Bank of Muscat</strong>.
-          </p>
-
-          <div class="hero-cta-group">
-            <a href="javascript:void(0)" class="btn btn-primary resume-download-btn">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
-              </svg>
-              <span>Download Resume (PDF)</span>
-            </a>
-            <a href="#contact" class="btn btn-secondary">
-              <span>Let's Connect</span>
-              &rarr;
-            </a>
+          <!-- Right Column: Professional Profile Portrait -->
+          <div class="hero-portrait-wrapper">
+            <div class="hero-portrait-card">
+              <div class="hero-portrait-glow" aria-hidden="true"></div>
+              <div class="hero-portrait-frame">
+                <img src="assets/images/profile.jpg"
+                  alt="Professional profile photo of a Full Stack .NET Developer"
+                  class="hero-portrait-img"
+                  width="360"
+                  height="360"
+                  loading="eager"
+                  fetchpriority="high">
+              </div>
+              <div class="hero-portrait-tag">
+                <span class="tag-status-indicator"></span>
+                <span class="tag-label">Aslam Shaikh &bull; Senior .NET Specialist</span>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <!-- Hero Metrics Bar -->
-          <div class="hero-stats-bar" id="hero-stats-container">
-            <!-- Rendered by main.js -->
-          </div>
+        <!-- Hero Metrics Bar -->
+        <div class="hero-stats-bar" id="hero-stats-container">
+          <!-- Rendered by main.js -->
         </div>
       </div>
     </section>
@@ -661,7 +670,7 @@
         </svg>
       </button>
       <div class="toast-avatar">
-        <span class="toast-wave" aria-hidden="true">👋</span>
+        <img src="assets/images/profile.jpg" alt="Aslam Shaikh" class="toast-profile-thumb" width="44" height="44" loading="lazy">
         <span class="toast-pulse-dot" aria-hidden="true"></span>
       </div>
       <div class="toast-body">
